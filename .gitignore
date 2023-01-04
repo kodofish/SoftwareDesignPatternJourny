@@ -351,3 +351,5 @@ MigrationBackup/
 
 #JetBrains IDE
 .idea/
+
+*.lock
