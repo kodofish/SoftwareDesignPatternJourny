@@ -22,11 +22,15 @@ namespace C2M2H1_TemplateMethod.TemplateMethod_Pratice
 
     public class Class2
     {
-        public void p2(int[] k) {
+        public void p2(int[] k)
+        {
             int n = k.Length;
-            for (int i = 0; i < n - 1; i++) {
-                for (int j = 0; j < n - i - 1; j++) {
-                    if (k[j] < k[j + 1]) {
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (k[j] < k[j + 1])
+                    {
                         int ppp = k[j];
                         k[j] = k[j + 1];
                         k[j + 1] = ppp;
