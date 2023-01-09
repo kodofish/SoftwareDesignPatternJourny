@@ -9,7 +9,7 @@ namespace C2M2H1_TemplateMethod.TemplateMethod_Pratice
             {
                 for (int j = 0; j < n - i - 1; j++)
                 {
-                    if (u[j] > u[j + 1])
+                    if (Condition(u[j], u[j + 1]))
                     {
                         int temp = u[j];
                         u[j] = u[j + 1];
@@ -17,6 +17,10 @@ namespace C2M2H1_TemplateMethod.TemplateMethod_Pratice
                     }
                 }
             }
+        }
+        private static bool Condition(int current, int next)
+        {
+            return current > next;
         }
     }
 
@@ -29,7 +33,7 @@ namespace C2M2H1_TemplateMethod.TemplateMethod_Pratice
             {
                 for (int j = 0; j < n - i - 1; j++)
                 {
-                    if (u[j] < u[j + 1])
+                    if (Condition(u[j], u[j + 1]))
                     {
                         int temp = u[j];
                         u[j] = u[j + 1];
@@ -37,6 +41,10 @@ namespace C2M2H1_TemplateMethod.TemplateMethod_Pratice
                     }
                 }
             }
+        }
+        private static bool Condition(int current, int next)
+        {
+            return current < next;
         }
     }
 
