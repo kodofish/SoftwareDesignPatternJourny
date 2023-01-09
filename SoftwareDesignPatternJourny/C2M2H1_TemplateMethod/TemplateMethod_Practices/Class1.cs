@@ -11,9 +11,9 @@ namespace C2M2H1_TemplateMethod.TemplateMethod_Pratice
                 {
                     if (u[j] > u[j + 1])
                     {
-                        int mak = u[j];
+                        int temp = u[j];
                         u[j] = u[j + 1];
-                        u[j + 1] = mak;
+                        u[j + 1] = temp;
                     }
                 }
             }
@@ -31,9 +31,9 @@ namespace C2M2H1_TemplateMethod.TemplateMethod_Pratice
                 {
                     if (u[j] < u[j + 1])
                     {
-                        int ppp = u[j];
+                        int temp = u[j];
                         u[j] = u[j + 1];
-                        u[j + 1] = ppp;
+                        u[j + 1] = temp;
                     }
                 }
             }
