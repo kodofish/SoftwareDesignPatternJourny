@@ -5,24 +5,29 @@ namespace C2M2H1_TemplateMethod.Showdown
         private Queue<PokerCard> _cards;
         private readonly PokerCard[] _originalCard;
 
-        public Deck(IEnumerable<PokerCard> cards)
+        public Deck()
         {
-            if (cards == null)
-                throw new ArgumentNullException(nameof(cards));
             _cards = new Queue<PokerCard>();
-            _originalCard = cards.ToArray();
+            _originalCard = GenerateCards().ToArray();
         }
-        
+
         public PokerCard Draw()
         {
             return _cards.Dequeue();
         }
-        
+
         public void Shuffle()
         {
             var rng = new Random();
             var randomCards = _originalCard.OrderBy(it => rng.NextDouble());
             _cards = new Queue<PokerCard>(randomCards);
+        }
+
+        private IEnumerable<PokerCard> GenerateCards()
+        {
+            foreach (var rank in Rank.GetValues(typeof(Rank)))
+                foreach (var suit in Suit.GetValues(typeof(Suit)))
+                    yield return new PokerCard((Suit)suit, (Rank)rank);
         }
     }
 }

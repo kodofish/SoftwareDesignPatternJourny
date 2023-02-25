@@ -9,20 +9,8 @@ var players = new Player[]
     new AiPlayer()
 };
 
-var cards = GenerateCards();
 
-IEnumerable<PokerCard> GenerateCards()
-{
-    foreach (var rank in Rank.GetValues(typeof(Rank)))
-    {
-        foreach (var suit in Suit.GetValues(typeof(Suit)))
-        {
-            yield return new PokerCard((Suit) suit, (Rank) rank);
-        }
-    }
-}
-
-var deck = new Deck(cards);
+var deck = new Deck();
 var game = new ShowdownGame(players, deck);
 
 game.Start();
