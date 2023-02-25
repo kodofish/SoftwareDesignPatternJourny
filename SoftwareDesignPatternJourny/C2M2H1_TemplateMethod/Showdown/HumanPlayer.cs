@@ -7,9 +7,9 @@ namespace C2M2H1_TemplateMethod.Showdown
             do
             {
                 Console.WriteLine("Please enter your name:");
-                _name = Console.ReadLine();
+                _name = Console.ReadLine() ?? string.Empty;
             }
-            while (_name == string.Empty);
+            while (string.IsNullOrWhiteSpace(_name));
         }
 
     }
