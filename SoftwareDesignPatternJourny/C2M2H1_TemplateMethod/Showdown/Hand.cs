@@ -2,10 +2,12 @@ namespace C2M2H1_TemplateMethod.Showdown
 {
     public class Hand : List<PokerCard>
     {
-        public PokerCard Draw()
+        public PokerCard RandomDraw()
         {
-            var card = this[0];
-            RemoveAt(0);
+            var rnd = new Random();
+            var index = rnd.Next(Count);
+            var card = this[index];
+            RemoveAt(index);
             return card;
         }
     }
