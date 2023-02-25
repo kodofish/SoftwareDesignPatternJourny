@@ -1,5 +1,6 @@
 namespace C2M2H1_TemplateMethod.Tests;
 
+using Shouldly;
 using Showdown;
 public class RankTests
 {
@@ -12,6 +13,6 @@ public class RankTests
     {
         var card1 = new PokerCard(Suit.Clubs, rank1);
         var card2 = new PokerCard(Suit.Clubs, rank2);
-        Assert.AreEqual(expected, card1.CompareTo(card2));
+        card1.CompareTo(card2).ShouldBe(expected);
     }
 }
