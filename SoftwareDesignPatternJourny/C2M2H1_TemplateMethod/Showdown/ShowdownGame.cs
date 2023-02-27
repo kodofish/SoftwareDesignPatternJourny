@@ -2,9 +2,9 @@ namespace C2M2H1_TemplateMethod.Showdown
 {
     public class ShowdownGame
     {
-        private readonly Player[] _players;
-        private readonly Deck _deck;
-        private int _round;
+        internal readonly Player[] _players;
+        internal readonly Deck _deck;
+        internal int _round;
         public ShowdownGame(Player[] players, Deck deck)
         {
             _players = players ?? throw new ArgumentNullException(nameof(players));
@@ -50,7 +50,7 @@ namespace C2M2H1_TemplateMethod.Showdown
         }
         private void Step4_3_WhoWinTheRound()
         {
-            var winPlayer = _players.First(player => _players.Where(it => it != player).Count(otherPlayer => player.ShowCard.CompareTo(otherPlayer.ShowCard) > 0) == 3);
+            var winPlayer = _players.First(player => _players.Where(it => it != player).Count(otherPlayer => player.ShowCard.CompareTo(otherPlayer.ShowCard) > 0) == _players.Length -1);
             winPlayer.GetPoint();
             Console.WriteLine($"The player {winPlayer.Name} wins this round.\n");
         }

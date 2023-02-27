@@ -5,7 +5,7 @@ namespace C2M2H1_TemplateMethod.Showdown
     public abstract class Player
     {
         protected string _name;
-        private readonly Hand _hand;
+        internal readonly Hand _hand;
         private PokerCard _card;
 
         public string Name { get { return _name; } }

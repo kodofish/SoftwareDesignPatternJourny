@@ -4,9 +4,9 @@ using C2M2H1_TemplateMethod.Showdown;
 var players = new Player[]
 {
     new HumanPlayer(),
-    new AiPlayer(),
-    new AiPlayer(),
-    new AiPlayer()
+    new ComputerPlayer(),
+    new ComputerPlayer(),
+    new ComputerPlayer()
 };
 
 

@@ -8,6 +8,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <InternalsVisibleTo Include="C2M2H1_TemplateMethod.Tests" />
+    </ItemGroup>
+    <ItemGroup>
       <PackageReference Include="Bogus" Version="34.0.2" />
     </ItemGroup>
 

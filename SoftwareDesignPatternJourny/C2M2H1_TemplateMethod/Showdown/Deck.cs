@@ -13,6 +13,9 @@ namespace C2M2H1_TemplateMethod.Showdown
 
         public PokerCard Draw()
         {
+            if (_cards.Count == 0)
+                throw new InvalidOperationException("Should shuffle first");
+            
             return _cards.Dequeue();
         }
 
