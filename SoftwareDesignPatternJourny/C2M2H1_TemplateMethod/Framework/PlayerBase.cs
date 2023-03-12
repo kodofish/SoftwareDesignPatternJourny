@@ -1,7 +1,9 @@
 namespace C2M2H1_TemplateMethod.Framework
 {
     using Bogus;
-    public abstract class PlayerBase<THand, TCard> where THand : HandBase<TCard>, new() where TCard : CardBase<TCard>
+    public abstract class PlayerBase<THand, TCard> 
+        where THand : HandBase<TCard>, new() 
+        where TCard : CardBase<TCard>
     {
         public THand Hand { get; }
         protected string _name;

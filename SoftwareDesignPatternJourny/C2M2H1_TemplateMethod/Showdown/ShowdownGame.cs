@@ -1,23 +1,16 @@
 namespace C2M2H1_TemplateMethod.Showdown
 {
-    public class ShowdownGame
+    using Framework;
+    public class ShowdownGame : GameBase<PokerPlayer, PokerHand, PokerDeck, PokerCard>
     {
-        internal readonly PokerPlayer[] _players;
-        internal readonly PokerDeck PokerDeck;
-        internal int _round;
-        public ShowdownGame(PokerPlayer[] players, PokerDeck pokerDeck)
+        protected override int cardAmount => 13;
+        
+        public ShowdownGame(PokerPlayer[] players, PokerDeck pokerDeck) : base(players, pokerDeck)
         {
-            _players = players ?? throw new ArgumentNullException(nameof(players));
-            PokerDeck = pokerDeck ?? throw new ArgumentNullException(nameof(pokerDeck));
-            _round = 0;
         }
-        public void Start()
+        public override void Play()
         {
-            Step1_NamingPlayer();
-
-            Step2_DeckShuffle();
-
-            Step3_PlayerDrawCard();
+            base.Play();
 
             Step4_PlayRound();
 
@@ -25,60 +18,30 @@ namespace C2M2H1_TemplateMethod.Showdown
         }
         private void Step4_PlayRound()
         {
-            do
+            while (_round < cardAmount)
             {
                 _round++;
                 Console.WriteLine($"The game starts a new round. Round {_round}");
 
-                Step4_1_PlayerTakesTurn();
+                foreach (var player in Players)
+                    player.TakesTurn();
 
-                Step4_2_PlayerShowCard();
+                foreach (var player1 in Players)
+                    Console.WriteLine($"The player {player1.Name} has {player1.ShowCard} in this round.");
 
-                Step4_3_WhoWinTheRound();
+                var winPlayer = Players.First(player => Players.Where(it => it != player).Count(otherPlayer => player.ShowCard.CompareTo(otherPlayer.ShowCard) > 0) == Players.Count -1);
+                winPlayer.GetPoint();
+                Console.WriteLine($"The player {winPlayer.Name} wins this round.\n");
             }
-            while (_round < 13);
         }
         private void Step5_DisplayResult()
         {
-
-            foreach (var player in _players)
+            foreach (var player in Players)
                 Console.WriteLine($"The player {player.Name}'s score is {player.Point}.");
 
-            var winner = _players.OrderByDescending(it => it.Point).First();
+            var winner = Players.OrderByDescending(it => it.Point).First();
 
             Console.WriteLine($"The player {winner.Name} wins the game.");
         }
-        private void Step4_3_WhoWinTheRound()
-        {
-            var winPlayer = _players.First(player => _players.Where(it => it != player).Count(otherPlayer => player.ShowCard.CompareTo(otherPlayer.ShowCard) > 0) == _players.Length -1);
-            winPlayer.GetPoint();
-            Console.WriteLine($"The player {winPlayer.Name} wins this round.\n");
-        }
-        private void Step4_2_PlayerShowCard()
-        {
-            foreach (var player in _players)
-                Console.WriteLine($"The player {player.Name} has {player.ShowCard} in this round.");
-        }
-        private void Step4_1_PlayerTakesTurn()
-        {
-            foreach (var player in _players)
-                player.TakesTurn();
-        }
-        private void Step2_DeckShuffle()
-        {
-            PokerDeck.Shuffle();
-        }
-        private void Step3_PlayerDrawCard()
-        {
-            for (var i = 0; i < 13; i++)
-                foreach (var player in _players)
-                    player.ReceiveCard(PokerDeck.Draw());
-        }
-        private void Step1_NamingPlayer()
-        {
-            foreach (var player in _players)
-                player.NamingSelf();
-        }
     }
-
 }

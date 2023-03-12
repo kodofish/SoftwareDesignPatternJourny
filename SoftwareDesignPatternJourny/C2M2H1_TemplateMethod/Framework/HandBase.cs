@@ -7,10 +7,11 @@ namespace C2M2H1_TemplateMethod.Framework
             return string.Join(", ", this);
         }
 
-        public virtual T DrawCard(T card = default)
+        public virtual T DrawCard(T? card = default)
         {
             if (Count == 0)
                 throw new InvalidOperationException("No card in hand");
+
             var index = 0;
 
             if (card == null)

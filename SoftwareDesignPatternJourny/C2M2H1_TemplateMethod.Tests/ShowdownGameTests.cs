@@ -180,10 +180,10 @@ namespace C2M2H1_TemplateMethod.Tests
             var players = new PokerPlayer[] { new HumanPokerPlayer(), new ComputerPokerPlayer() };
             var game = new ShowdownGame(players, deck);
 
-            game._players.Length.ShouldBe(2);
-            game._players[0].ShouldBeOfType<HumanPokerPlayer>();
-            game._players[1].ShouldBeOfType<ComputerPokerPlayer>();
-            game.PokerDeck.Equals(deck);
+            game.Players.Count.ShouldBe(2);
+            game.Players[0].ShouldBeOfType<HumanPokerPlayer>();
+            game.Players[1].ShouldBeOfType<ComputerPokerPlayer>();
+            game.Deck.Equals(deck);
         }
 
         [Test]
@@ -192,7 +192,7 @@ namespace C2M2H1_TemplateMethod.Tests
             var deck = new PokerDeck();
             var players = new PokerPlayer[] { new ComputerPokerPlayer(), new ComputerPokerPlayer() };
             var game = new ShowdownGame(players, deck);
-            game.Start();
+            game.Play();
             game._round.ShouldBe(13);
         }
     }

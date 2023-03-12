@@ -1,36 +1,38 @@
 namespace C2M2H1_TemplateMethod.Uno
 {
-    public class UnoGame
+    using Framework;
+    public class UnoGame : GameBase<UnoPlayer, UnoHand, UnoDeck, UnoCard>
     {
-        private readonly List<UnoPlayer> _players;
-        private readonly UnoDeck _unoDeck;
-        internal int _round;
+        private UnoCard _tableCard = new EmptyUnoCard();
 
-        public UnoGame(IEnumerable<UnoPlayer> players, UnoDeck unoDeck)
+        protected override int cardAmount => 5;
+
+        public UnoGame(IEnumerable<UnoPlayer> players, UnoDeck deck)
+            : base(players, deck)
         {
-            _players = players.ToList();
-            _unoDeck = unoDeck;
-            _unoDeck.Shuffle();
         }
 
-        public void Play()
+        public override void Play()
         {
-            Step1_PlayerNaming();
+            base.Play();
 
-            Step2_PlayerDrawCard();
+            DrawCardToTable();
 
-            var _tableCard = Step3_1_DrawCardToTable();
-
+            Step4_PlayRound();
+        }
+        private void Step4_PlayRound()
+        {
             while (true)
             {
+                _round++;
                 Console.WriteLine($"\nThe {_round++} round. The table card is {_tableCard}\n");
-                foreach (var player in _players)
+                foreach (var player in Players)
                 {
                     Console.WriteLine($"The {player} turn.");
                     var card = player.TakeTurn(_tableCard);
                     if (card.Equals(new EmptyUnoCard()))
                     {
-                        player.DrawCard(_unoDeck);
+                        player.ReceiveCard(Deck.Draw());
                         Console.WriteLine($"The {player} draw a card from deck.");
                         break;
                     }
@@ -41,8 +43,7 @@ namespace C2M2H1_TemplateMethod.Uno
                         continue;
                     }
 
-                    _unoDeck.Fold(_tableCard);
-                    _tableCard = card;
+                    ReplaceTableCard(card);
                     Console.WriteLine($"The {player} throw {card} to table.");
 
                     if (!player.Hand.Any())
@@ -54,25 +55,17 @@ namespace C2M2H1_TemplateMethod.Uno
                 }
             }
         }
-        private UnoCard Step3_1_DrawCardToTable()
+
+        private void ReplaceTableCard(UnoCard card)
         {
-            var _tableCard = _unoDeck.Draw();
+            Deck.Fold(_tableCard);
+            _tableCard = card;
+        }
+
+        private void DrawCardToTable()
+        {
+            _tableCard = Deck.Draw();
             Console.WriteLine($"First card: {_tableCard}");
-            return _tableCard;
-        }
-        private void Step2_PlayerDrawCard()
-        {
-            for (var i = 0; i < 5; i++)
-                foreach (var player in _players)
-                    player.DrawCard(_unoDeck);
-        }
-        private void Step1_PlayerNaming()
-        {
-            foreach (var player in _players)
-            {
-                player.NamingSelf();
-                Console.WriteLine(player);
-            }
         }
     }
 }

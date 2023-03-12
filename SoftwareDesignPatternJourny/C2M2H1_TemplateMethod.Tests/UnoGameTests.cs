@@ -129,7 +129,7 @@ namespace C2M2H1_TemplateMethod.Tests
                 var hand = new UnoHand();
                 var card = new UnoCard(Color.RED, Number.ZERO);
                 hand.Add(card);
-                UnoCard tableCard = new UnoCard(Color.BLUE, Number.SIX);
+                UnoCard? tableCard = new UnoCard(Color.BLUE, Number.SIX);
                 var actual = hand.DrawCard(tableCard);
                     actual.ShouldBe(new EmptyUnoCard());
             }
@@ -140,7 +140,7 @@ namespace C2M2H1_TemplateMethod.Tests
                 var hand = new UnoHand();
                 var card = new UnoCard(Color.RED, Number.ZERO);
                 hand.Add(card);
-                UnoCard tableCard = new UnoCard(Color.RED, Number.SIX);
+                UnoCard? tableCard = new UnoCard(Color.RED, Number.SIX);
                 hand.DrawCard(tableCard).ShouldBe(new UnoCard(Color.RED, Number.ZERO));
             }
         }
@@ -154,8 +154,9 @@ namespace C2M2H1_TemplateMethod.Tests
             {
                 var player = new HumanUnoPlayer();
                 var deck = new UnoDeck();
-                player.DrawCard(deck);
-                player.Hand.Count().ShouldBe(1);
+
+                player.ReceiveCard(deck.Draw());
+                player.Hand.Count.ShouldBe(1);
             }
             //write test for Player.NamingSelf()
             [Test]
