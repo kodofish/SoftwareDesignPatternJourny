@@ -1,43 +1,46 @@
 namespace C2M2H1_TemplateMethod.Uno
 {
-    public class UnoCard : IComparable<UnoCard>
-    {
-        public Color Color { get; }
-        public Number Number { get; }
+    using Framework;
 
-        public UnoCard(Color color, Number number)
-        {
-            Color = color;
-            Number = number;
-        }
+    public record UnoCard(Color color, Number number) : CardBase<UnoCard>
+    {
+        private static readonly UnoCard _emptyCard = new EmptyUnoCard();
 
         public override string ToString()
         {
-            return $"{Color} {Number}";
+            return $"{color} {number}";
         }
-        public virtual int CompareTo(UnoCard? other)
-        {
-            var colorComparison = Color.CompareTo(other.Color);
-            return colorComparison == 0 ? colorComparison : Number.CompareTo(other.Number) == 0 ? 0 : 1;
-        }
+
         public static UnoCard EmptyCard()
         {
-            return new EmptyUnoCard();
+            return _emptyCard;
         }
-        public override bool Equals(object? obj)
+
+        public override bool Equals(UnoCard? obj)
         {
             if (obj == null)
                 return false;
+
             if (obj.GetType() != GetType())
                 return false;
-            var other = (UnoCard) obj;
-            return Color == other.Color && Number == other.Number;
+
+            return color == obj.color && number == obj.number;
+        }
+        
+        public override int CompareTo(UnoCard? other)
+        {
+            if (other == null)
+                return 1;
+
+            if (color.CompareTo(other.color) == 0)
+                return 0;
+            
+            return number.CompareTo(other.number) == 0 ? 0 : 1;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Color, Number);
+            return HashCode.Combine(color, number);
         }
     }
-
 }
