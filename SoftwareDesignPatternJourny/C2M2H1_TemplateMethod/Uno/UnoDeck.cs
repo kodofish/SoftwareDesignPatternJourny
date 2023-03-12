@@ -1,11 +1,11 @@
 namespace C2M2H1_TemplateMethod.Uno
 {
-    public class Deck
+    public class UnoDeck
     {
-        internal Queue<Card> _cards = new Queue<Card>();
-        private readonly List<Card> _foldedCards = new List<Card>();
+        internal Queue<UnoCard> _cards = new Queue<UnoCard>();
+        private readonly List<UnoCard> _foldedCards = new List<UnoCard>();
 
-        public Deck()
+        public UnoDeck()
         {
             foreach (Color color in Enum.GetValues(typeof(Color)))
             {
@@ -15,18 +15,18 @@ namespace C2M2H1_TemplateMethod.Uno
                 {
                     if (number == Number.NONE)
                         continue;
-                    _foldedCards.Add(new Card(color, number));
+                    _foldedCards.Add(new UnoCard(color, number));
                 }
             }
         }
 
         public void Shuffle()
         {
-            _cards = new Queue<Card>(_cards.Concat( _foldedCards.OrderBy(x => Guid.NewGuid())));
+            _cards = new Queue<UnoCard>(_cards.Concat( _foldedCards.OrderBy(x => Guid.NewGuid())));
             _foldedCards.Clear();
         }
 
-        public Card Draw()
+        public UnoCard Draw()
         {
             if (_cards.Count == 0)
                 Shuffle();
@@ -34,9 +34,9 @@ namespace C2M2H1_TemplateMethod.Uno
             return _cards.Dequeue();
         }
         
-        public void Fold(Card card)
+        public void Fold(UnoCard unoCard)
         {
-            _foldedCards.Add(card);
+            _foldedCards.Add(unoCard);
         }
     }
 }

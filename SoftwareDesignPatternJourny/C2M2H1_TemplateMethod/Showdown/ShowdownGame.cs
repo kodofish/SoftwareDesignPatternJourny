@@ -2,13 +2,13 @@ namespace C2M2H1_TemplateMethod.Showdown
 {
     public class ShowdownGame
     {
-        internal readonly Player[] _players;
-        internal readonly Deck _deck;
+        internal readonly PokerPlayer[] _players;
+        internal readonly PokerDeck PokerDeck;
         internal int _round;
-        public ShowdownGame(Player[] players, Deck deck)
+        public ShowdownGame(PokerPlayer[] players, PokerDeck pokerDeck)
         {
             _players = players ?? throw new ArgumentNullException(nameof(players));
-            _deck = deck ?? throw new ArgumentNullException(nameof(deck));
+            PokerDeck = pokerDeck ?? throw new ArgumentNullException(nameof(pokerDeck));
             _round = 0;
         }
         public void Start()
@@ -66,13 +66,13 @@ namespace C2M2H1_TemplateMethod.Showdown
         }
         private void Step2_DeckShuffle()
         {
-            _deck.Shuffle();
+            PokerDeck.Shuffle();
         }
         private void Step3_PlayerDrawCard()
         {
             for (var i = 0; i < 13; i++)
                 foreach (var player in _players)
-                    player.ReceiveCard(_deck.Draw());
+                    player.ReceiveCard(PokerDeck.Draw());
         }
         private void Step1_NamingPlayer()
         {

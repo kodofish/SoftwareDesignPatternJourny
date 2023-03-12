@@ -1,8 +1,8 @@
 namespace C2M2H1_TemplateMethod.Uno
 {
-    public class EmptyCard : Card
+    public class EmptyUnoCard : UnoCard
     {
-        public EmptyCard()
+        public EmptyUnoCard()
             : base(Color.NONE, Number.NONE)
         {
         }

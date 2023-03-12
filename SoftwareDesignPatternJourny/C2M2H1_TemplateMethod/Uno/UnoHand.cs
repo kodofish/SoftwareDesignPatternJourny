@@ -1,17 +1,17 @@
 namespace C2M2H1_TemplateMethod.Uno
 {
-    public class Hand
+    public class UnoHand
     {
-        private readonly List<Card> _cards;
+        private readonly List<UnoCard> _cards;
 
-        public Hand()
+        public UnoHand()
         {
-            _cards = new List<Card>();
+            _cards = new List<UnoCard>();
         }
         
-        public void AddCard(Card card)
+        public void AddCard(UnoCard unoCard)
         {
-            _cards.Add(card);
+            _cards.Add(unoCard);
             
         }
 
@@ -19,14 +19,14 @@ namespace C2M2H1_TemplateMethod.Uno
         {
             return string.Join(", ", _cards);
         }
-        public Card DrawCard(Card tableCard)
+        public UnoCard DrawCard(UnoCard tableUnoCard)
         {
             if (_cards.Count == 0)
                 throw new InvalidOperationException("No card in hand");
 
-            var availableCard = _cards.FirstOrDefault(it => it.CompareTo(tableCard) == 0);
+            var availableCard = _cards.FirstOrDefault(it => it.CompareTo(tableUnoCard) == 0);
             if (availableCard == null)
-                return new EmptyCard();
+                return UnoCard.EmptyCard();
 
             var index = _cards.IndexOf(availableCard);
             _cards.RemoveAt(index);

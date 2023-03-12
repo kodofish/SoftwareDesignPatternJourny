@@ -48,7 +48,7 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void Draw()
         {
-            var deck = new Deck();
+            var deck = new PokerDeck();
             deck.Shuffle();
             deck.Draw().ShouldNotBeNull();
         }
@@ -56,7 +56,7 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void Shuffle()
         {
-            var deck = new Deck();
+            var deck = new PokerDeck();
             deck.Shuffle();
             var card1 = deck.Draw();
             deck.Shuffle();
@@ -67,7 +67,7 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void DrawAll()
         {
-            var deck = new Deck();
+            var deck = new PokerDeck();
             deck.Shuffle();
             for (var i = 0; i < 52; i++)
                 deck.Draw().ShouldNotBeNull();
@@ -77,7 +77,7 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void DrawAllAndShuffle()
         {
-            var deck = new Deck();
+            var deck = new PokerDeck();
             deck.Shuffle();
             for (var i = 0; i < 52; i++)
                 deck.Draw().ShouldNotBeNull();
@@ -89,7 +89,7 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void Draw_First_NotShuffle_Should_throw_Exception()
         {
-            var deck = new Deck();
+            var deck = new PokerDeck();
             Assert.Throws<InvalidOperationException>(() => deck.Draw())?.Message.ShouldBe("Should shuffle first");
         }
     }
@@ -99,14 +99,14 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void RandomDraw()
         {
-            var hand = new Hand { new PokerCard(Suit.Clubs, Rank.Ace), new PokerCard(Suit.Clubs, Rank.King) };
+            var hand = new PokerHand { new PokerCard(Suit.Clubs, Rank.Ace), new PokerCard(Suit.Clubs, Rank.King) };
             hand.RandomDraw().ShouldNotBeNull();
         }
 
         [Test]
         public void RandomDraw_Empty()
         {
-            var hand = new Hand();
+            var hand = new PokerHand();
             Assert.Throws<InvalidOperationException>(() => hand.RandomDraw())?.Message.ShouldBe("No card in hand");
         }
     }
@@ -116,14 +116,14 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void HumanPlayer()
         {
-            var player = new TestHumanPlayer();
+            var player = new TestHumanPokerPlayer();
             player.NamingSelf();
             player.Name.ShouldBe("Test");
             player.Point.ShouldBe(0);
             player.ShowCard.ShouldBeNull();
         }
 
-        private class TestHumanPlayer : HumanPlayer
+        private class TestHumanPokerPlayer : HumanPokerPlayer
         {
             protected override string ReadFromConsole()
             {
@@ -137,7 +137,7 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void ComputerPlayer()
         {
-            var player = new ComputerPlayer();
+            var player = new ComputerPokerPlayer();
             player.NamingSelf();
             player.Name.ShouldNotBeEmpty();
         }
@@ -148,7 +148,7 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void GetPoint()
         {
-            var player = new ComputerPlayer();
+            var player = new ComputerPokerPlayer();
             player.GetPoint();
             player.Point.ShouldBe(1);
         }
@@ -156,15 +156,15 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void ReceiveCard()
         {
-            var player = new ComputerPlayer();
+            var player = new ComputerPokerPlayer();
             player.ReceiveCard(new PokerCard(Suit.Clubs, Rank.Ace));
-            player._hand.Count.ShouldBe(1);
+            player.PokerHand.Count.ShouldBe(1);
         }
 
         [Test]
         public void TakesTurn()
         {
-            var player = new ComputerPlayer();
+            var player = new ComputerPokerPlayer();
             player.ReceiveCard(new PokerCard(Suit.Clubs, Rank.Ace));
             player.TakesTurn();
             player.ShowCard.ShouldBe(new PokerCard(Suit.Clubs, Rank.Ace));
@@ -176,21 +176,21 @@ namespace C2M2H1_TemplateMethod.Tests
         [Test]
         public void Game()
         {
-            var deck = new Deck();
-            var players = new Player[] { new HumanPlayer(), new ComputerPlayer() };
+            var deck = new PokerDeck();
+            var players = new PokerPlayer[] { new HumanPokerPlayer(), new ComputerPokerPlayer() };
             var game = new ShowdownGame(players, deck);
 
             game._players.Length.ShouldBe(2);
-            game._players[0].ShouldBeOfType<HumanPlayer>();
-            game._players[1].ShouldBeOfType<ComputerPlayer>();
-            game._deck.Equals(deck);
+            game._players[0].ShouldBeOfType<HumanPokerPlayer>();
+            game._players[1].ShouldBeOfType<ComputerPokerPlayer>();
+            game.PokerDeck.Equals(deck);
         }
 
         [Test]
         public void Play()
         {
-            var deck = new Deck();
-            var players = new Player[] { new ComputerPlayer(), new ComputerPlayer() };
+            var deck = new PokerDeck();
+            var players = new PokerPlayer[] { new ComputerPokerPlayer(), new ComputerPokerPlayer() };
             var game = new ShowdownGame(players, deck);
             game.Start();
             game._round.ShouldBe(13);

@@ -1,11 +1,11 @@
 namespace C2M2H1_TemplateMethod.Showdown
 {
-    public class Deck
+    public class PokerDeck
     {
         private Queue<PokerCard> _cards;
         private readonly PokerCard[] _originalCard;
 
-        public Deck()
+        public PokerDeck()
         {
             _cards = new Queue<PokerCard>();
             _originalCard = GenerateCards().ToArray();

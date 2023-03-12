@@ -1,6 +1,6 @@
 namespace C2M2H1_TemplateMethod.Uno
 {
-    public class HumanPlayer : Player
+    public class HumanUnoPlayer : UnoPlayer
     {
         public override void NamingSelf()
         {

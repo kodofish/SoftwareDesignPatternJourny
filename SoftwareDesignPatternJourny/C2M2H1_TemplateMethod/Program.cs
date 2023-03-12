@@ -1,20 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using C2M2H1_TemplateMethod.Showdown;
 using C2M2H1_TemplateMethod.Uno;
-using ComputerPlayer = C2M2H1_TemplateMethod.Showdown.ComputerPlayer;
-using Deck = C2M2H1_TemplateMethod.Showdown.Deck;
-using HumanPlayer = C2M2H1_TemplateMethod.Showdown.HumanPlayer;
-using Player = C2M2H1_TemplateMethod.Showdown.Player;
 
 
-var players = new C2M2H1_TemplateMethod.Uno.Player[]
+var players = new C2M2H1_TemplateMethod.Uno.UnoPlayer[]
 {
-    new C2M2H1_TemplateMethod.Uno.ComputerPlayer(),
-    new C2M2H1_TemplateMethod.Uno.ComputerPlayer(),
-    new C2M2H1_TemplateMethod.Uno.ComputerPlayer(),
-    new C2M2H1_TemplateMethod.Uno.ComputerPlayer()
+    new C2M2H1_TemplateMethod.Uno.ComputerUnoPlayer(),
+    new C2M2H1_TemplateMethod.Uno.ComputerUnoPlayer(),
+    new C2M2H1_TemplateMethod.Uno.ComputerUnoPlayer(),
+    new C2M2H1_TemplateMethod.Uno.ComputerUnoPlayer()
 };
-var deck = new C2M2H1_TemplateMethod.Uno.Deck();
+var deck = new C2M2H1_TemplateMethod.Uno.UnoDeck();
 var unoGame = new UnoGame(players, deck);
 
 unoGame.Play();
@@ -24,16 +20,16 @@ Console.ReadLine();
 void StartShowdownGame()
 {
 
-    var players1 = new Player[]
+    var players1 = new PokerPlayer[]
     {
-        new HumanPlayer(),
-        new ComputerPlayer(),
-        new ComputerPlayer(),
-        new ComputerPlayer()
+        new HumanPokerPlayer(),
+        new ComputerPokerPlayer(),
+        new ComputerPokerPlayer(),
+        new ComputerPokerPlayer()
     };
 
 
-    var deck = new Deck();
+    var deck = new PokerDeck();
     var game = new ShowdownGame(players1, deck);
 
     game.Start();

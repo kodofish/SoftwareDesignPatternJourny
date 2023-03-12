@@ -2,10 +2,10 @@ using Bogus;
 
 namespace C2M2H1_TemplateMethod.Showdown
 {
-    public abstract class Player
+    public abstract class PokerPlayer
     {
         protected string _name;
-        internal readonly Hand _hand;
+        internal readonly PokerHand PokerHand;
         private PokerCard _card;
 
         public string Name { get { return _name; } }
@@ -14,9 +14,9 @@ namespace C2M2H1_TemplateMethod.Showdown
 
         public PokerCard ShowCard { get { return _card; } }
 
-        protected Player()
+        protected PokerPlayer()
         {
-            _hand = new Hand();
+            PokerHand = new PokerHand();
             _name = string.Empty;
             Point = 0;
         }
@@ -33,12 +33,12 @@ namespace C2M2H1_TemplateMethod.Showdown
 
         public void TakesTurn()
         {
-            _card = _hand.RandomDraw();
+            _card = PokerHand.RandomDraw();
         }
 
         public void ReceiveCard(PokerCard card)
         {
-            _hand.Add(card);
+            PokerHand.Add(card);
         }
     }
 }

@@ -65,8 +65,8 @@ namespace C2M2H1_TemplateMethod.Tests
         [TestCase(Color.RED, Number.ZERO, Color.GREEN, Number.FIVE, 1)]
         public void CardCompareToTest(Color color1, Number number1, Color color2, Number number2, int expected)
         {
-            var card1 = new Card(color1, number1);
-            var card2 = new Card(color2, number2);
+            var card1 = new UnoCard(color1, number1);
+            var card2 = new UnoCard(color2, number2);
             card1.CompareTo(card2).ShouldBe(expected);
         }
 
@@ -76,8 +76,8 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void DeckShuffleTest()
             {
-                var deck = new Deck();
-                var deck2 = new Deck();
+                var deck = new UnoDeck();
+                var deck2 = new UnoDeck();
                 deck.Shuffle();
                 deck2.Shuffle();
                 deck.Draw().GetHashCode().ShouldNotBe(deck2.GetHashCode());
@@ -88,7 +88,7 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void DeckDraw_40_times()
             {
-                var deck = new Deck();
+                var deck = new UnoDeck();
                 deck.Shuffle();
                 for (var i = 0; i < 40; i++)
                 {
@@ -100,7 +100,7 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void DeckDraw_41_times()
             {
-                var deck = new Deck();
+                var deck = new UnoDeck();
                 deck.Shuffle();
                 for (var i = 0; i < 41; i++)
                 {
@@ -117,8 +117,8 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void HandAddCardTest()
             {
-                var hand = new Hand();
-                var card = new Card(Color.RED, Number.ZERO);
+                var hand = new UnoHand();
+                var card = new UnoCard(Color.RED, Number.ZERO);
                 hand.AddCard(card);
                 hand.Count().ShouldBe(1);
             }
@@ -126,20 +126,20 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void HandDrawCardTest()
             {
-                var hand = new Hand();
-                var card = new Card(Color.RED, Number.ZERO);
+                var hand = new UnoHand();
+                var card = new UnoCard(Color.RED, Number.ZERO);
                 hand.AddCard(card);
-                var actual = hand.DrawCard(new Card(Color.BLUE, Number.SIX));
-                    actual.ShouldBe(new EmptyCard());
+                var actual = hand.DrawCard(new UnoCard(Color.BLUE, Number.SIX));
+                    actual.ShouldBe(new EmptyUnoCard());
             }
 
             [Test]
             public void HandDrawCardTest2()
             {
-                var hand = new Hand();
-                var card = new Card(Color.RED, Number.ZERO);
+                var hand = new UnoHand();
+                var card = new UnoCard(Color.RED, Number.ZERO);
                 hand.AddCard(card);
-                hand.DrawCard(new Card(Color.RED, Number.SIX)).ShouldBe(new Card(Color.RED, Number.ZERO));
+                hand.DrawCard(new UnoCard(Color.RED, Number.SIX)).ShouldBe(new UnoCard(Color.RED, Number.ZERO));
             }
         }
 
@@ -150,16 +150,16 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void PlayerDrawCardTest()
             {
-                var player = new Player();
-                var deck = new Deck();
+                var player = new UnoPlayer();
+                var deck = new UnoDeck();
                 player.DrawCard(deck);
-                player.Hand.Count().ShouldBe(1);
+                player.UnoHand.Count().ShouldBe(1);
             }
             //write test for Player.NamingSelf()
             [Test]
             public void PlayerNamingSelfTest()
             {
-                var player = new Player();
+                var player = new UnoPlayer();
                 player.NamingSelf();
                 player.Name.ShouldNotBeEmpty();
             }
@@ -168,21 +168,21 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void PlayerTakeTurnTest()
             {
-                var player = new Player();
-                player.ReceiveCard(new Card(Color.RED, Number.ONE));
-                var actual = player.TakeTurn(new Card(Color.RED, Number.FIVE));
+                var player = new UnoPlayer();
+                player.ReceiveCard(new UnoCard(Color.RED, Number.ONE));
+                var actual = player.TakeTurn(new UnoCard(Color.RED, Number.FIVE));
 
-                actual.ShouldBe(new Card(Color.RED, Number.ONE));
+                actual.ShouldBe(new UnoCard(Color.RED, Number.ONE));
             }
 
             [Test]
             public void PlayerTakeTurnTest2()
             {
-                var player = new Player();
-                player.ReceiveCard(new Card(Color.RED, Number.ONE));
-                var actual = player.TakeTurn(new Card(Color.GREEN, Number.FIVE));
+                var player = new UnoPlayer();
+                player.ReceiveCard(new UnoCard(Color.RED, Number.ONE));
+                var actual = player.TakeTurn(new UnoCard(Color.GREEN, Number.FIVE));
 
-                actual.ShouldBe(new EmptyCard());
+                actual.ShouldBe(new EmptyUnoCard());
             }
         }
         
@@ -193,12 +193,12 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void HumanPlayerNamingSelfTest()
             {
-                var humanPlayer = new TestHumanPlayer();
+                var humanPlayer = new TestHumanUnoPlayer();
                 humanPlayer.NamingSelf();
                 humanPlayer.Name.ShouldBe("Test");
             }
             
-            class TestHumanPlayer : HumanPlayer
+            class TestHumanUnoPlayer : HumanUnoPlayer
             {
                 internal override string ReadPlayerNameFromConsole()
                 {
@@ -212,8 +212,8 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void GamePlayTest()
             {
-                var players = new[] { new ComputerPlayer(), new ComputerPlayer(), new ComputerPlayer(), new ComputerPlayer() };
-                var game = new UnoGame(players, new Deck());
+                var players = new[] { new ComputerUnoPlayer(), new ComputerUnoPlayer(), new ComputerUnoPlayer(), new ComputerUnoPlayer() };
+                var game = new UnoGame(players, new UnoDeck());
                 game.Play();
                 game._round.ShouldBeGreaterThanOrEqualTo(5);
             }

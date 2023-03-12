@@ -1,6 +1,6 @@
 namespace C2M2H1_TemplateMethod.Showdown
 {
-    public class HumanPlayer : Player
+    public class HumanPokerPlayer : PokerPlayer
     {
         public override void NamingSelf()
         {
