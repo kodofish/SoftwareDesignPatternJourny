@@ -152,16 +152,16 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void PlayerDrawCardTest()
             {
-                var player = new UnoPlayer();
+                var player = new HumanUnoPlayer();
                 var deck = new UnoDeck();
                 player.DrawCard(deck);
-                player.UnoHand.Count().ShouldBe(1);
+                player.Hand.Count().ShouldBe(1);
             }
             //write test for Player.NamingSelf()
             [Test]
             public void PlayerNamingSelfTest()
             {
-                var player = new UnoPlayer();
+                var player = new ComputerUnoPlayer();
                 player.NamingSelf();
                 player.Name.ShouldNotBeEmpty();
             }
@@ -170,7 +170,7 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void PlayerTakeTurnTest()
             {
-                var player = new UnoPlayer();
+                var player = new HumanUnoPlayer();
                 player.ReceiveCard(new UnoCard(Color.RED, Number.ONE));
                 var actual = player.TakeTurn(new UnoCard(Color.RED, Number.FIVE));
 
@@ -180,7 +180,7 @@ namespace C2M2H1_TemplateMethod.Tests
             [Test]
             public void PlayerTakeTurnTest2()
             {
-                var player = new UnoPlayer();
+                var player = new HumanUnoPlayer();
                 player.ReceiveCard(new UnoCard(Color.RED, Number.ONE));
                 var actual = player.TakeTurn(new UnoCard(Color.GREEN, Number.FIVE));
 

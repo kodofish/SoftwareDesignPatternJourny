@@ -4,14 +4,15 @@ namespace C2M2H1_TemplateMethod.Uno
     {
         public override void NamingSelf()
         {
-            Console.WriteLine("What is your name?");
             do
             {
-                Name = ReadPlayerNameFromConsole();
+                Console.WriteLine("Please enter your name:");
+                _name = ReadPlayerNameFromConsole();
             }
             while (string.IsNullOrWhiteSpace(Name));
-            
+
         }
+
         internal virtual string ReadPlayerNameFromConsole()
         {
             return Console.ReadLine() ?? string.Empty;

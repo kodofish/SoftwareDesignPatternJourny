@@ -45,7 +45,7 @@ namespace C2M2H1_TemplateMethod.Uno
                     _tableCard = card;
                     Console.WriteLine($"The {player} throw {card} to table.");
 
-                    if (player.UnoHand.Count() == 0)
+                    if (!player.Hand.Any())
                     {
                         Console.WriteLine($"The {player} win.");
                         return;

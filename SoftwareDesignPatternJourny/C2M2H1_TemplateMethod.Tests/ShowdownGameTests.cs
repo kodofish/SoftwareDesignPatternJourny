@@ -158,7 +158,7 @@ namespace C2M2H1_TemplateMethod.Tests
         {
             var player = new ComputerPokerPlayer();
             player.ReceiveCard(new PokerCard(Suit.Clubs, Rank.Ace));
-            player.PokerHand.Count.ShouldBe(1);
+            player.Hand.Count.ShouldBe(1);
         }
 
         [Test]

@@ -11,6 +11,7 @@ namespace C2M2H1_TemplateMethod.Showdown
             }
             while (string.IsNullOrWhiteSpace(_name));
         }
+
         protected virtual string ReadFromConsole()
         {
             return Console.ReadLine() ?? string.Empty;

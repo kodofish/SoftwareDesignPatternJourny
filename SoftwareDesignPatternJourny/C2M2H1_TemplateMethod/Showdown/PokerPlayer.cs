@@ -1,14 +1,10 @@
-using Bogus;
-
 namespace C2M2H1_TemplateMethod.Showdown
 {
-    public abstract class PokerPlayer
-    {
-        protected string _name;
-        internal readonly PokerHand PokerHand;
-        private PokerCard _card;
+    using Framework;
 
-        public string Name { get { return _name; } }
+    public abstract class PokerPlayer : PlayerBase<PokerHand, PokerCard>
+    {
+        private PokerCard _card;
 
         public int Point { get; private set; }
 
@@ -16,8 +12,6 @@ namespace C2M2H1_TemplateMethod.Showdown
 
         protected PokerPlayer()
         {
-            PokerHand = new PokerHand();
-            _name = string.Empty;
             Point = 0;
         }
         
@@ -26,19 +20,9 @@ namespace C2M2H1_TemplateMethod.Showdown
             Point++;
         }
 
-        public virtual void NamingSelf()
-        {
-            _name = (new Faker()).Person.FirstName;
-        }
-
         public void TakesTurn()
         {
-            _card = PokerHand.DrawCard();
-        }
-
-        public void ReceiveCard(PokerCard card)
-        {
-            PokerHand.Add(card);
+            _card = Hand.DrawCard();
         }
     }
 }
