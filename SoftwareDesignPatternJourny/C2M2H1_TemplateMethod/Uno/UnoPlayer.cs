@@ -38,7 +38,7 @@ namespace C2M2H1_TemplateMethod.Uno
         }
         public void ReceiveCard(UnoCard unoCard)
         {
-            UnoHand.AddCard(unoCard);
+            UnoHand.Add(unoCard);
         }
     }
 }

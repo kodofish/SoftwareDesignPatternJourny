@@ -4,16 +4,9 @@ namespace C2M2H1_TemplateMethod.Uno
 
     public record UnoCard(Color color, Number number) : CardBase<UnoCard>
     {
-        private static readonly UnoCard _emptyCard = new EmptyUnoCard();
-
         public override string ToString()
         {
             return $"{color} {number}";
-        }
-
-        public static UnoCard EmptyCard()
-        {
-            return _emptyCard;
         }
 
         public override bool Equals(UnoCard? obj)
@@ -26,7 +19,7 @@ namespace C2M2H1_TemplateMethod.Uno
 
             return color == obj.color && number == obj.number;
         }
-        
+
         public override int CompareTo(UnoCard? other)
         {
             if (other == null)

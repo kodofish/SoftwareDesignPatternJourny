@@ -33,7 +33,7 @@ namespace C2M2H1_TemplateMethod.Showdown
 
         public void TakesTurn()
         {
-            _card = PokerHand.RandomDraw();
+            _card = PokerHand.DrawCard();
         }
 
         public void ReceiveCard(PokerCard card)

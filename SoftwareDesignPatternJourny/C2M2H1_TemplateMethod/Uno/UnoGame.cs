@@ -28,7 +28,7 @@ namespace C2M2H1_TemplateMethod.Uno
                 {
                     Console.WriteLine($"The {player} turn.");
                     var card = player.TakeTurn(_tableCard);
-                    if (card.Equals(UnoCard.EmptyCard()))
+                    if (card.Equals(new EmptyUnoCard()))
                     {
                         player.DrawCard(_unoDeck);
                         Console.WriteLine($"The {player} draw a card from deck.");

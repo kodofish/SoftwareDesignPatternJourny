@@ -100,14 +100,14 @@ namespace C2M2H1_TemplateMethod.Tests
         public void RandomDraw()
         {
             var hand = new PokerHand { new PokerCard(Suit.Clubs, Rank.Ace), new PokerCard(Suit.Clubs, Rank.King) };
-            hand.RandomDraw().ShouldNotBeNull();
+            hand.DrawCard().ShouldNotBeNull();
         }
 
         [Test]
         public void RandomDraw_Empty()
         {
             var hand = new PokerHand();
-            Assert.Throws<InvalidOperationException>(() => hand.RandomDraw())?.Message.ShouldBe("No card in hand");
+            Assert.Throws<InvalidOperationException>(() => hand.DrawCard())?.Message.ShouldBe("No card in hand");
         }
     }
 

@@ -119,7 +119,7 @@ namespace C2M2H1_TemplateMethod.Tests
             {
                 var hand = new UnoHand();
                 var card = new UnoCard(Color.RED, Number.ZERO);
-                hand.AddCard(card);
+                hand.Add(card);
                 hand.Count().ShouldBe(1);
             }
             //write test case for Hand.DrawCard()
@@ -128,8 +128,9 @@ namespace C2M2H1_TemplateMethod.Tests
             {
                 var hand = new UnoHand();
                 var card = new UnoCard(Color.RED, Number.ZERO);
-                hand.AddCard(card);
-                var actual = hand.DrawCard(new UnoCard(Color.BLUE, Number.SIX));
+                hand.Add(card);
+                UnoCard tableCard = new UnoCard(Color.BLUE, Number.SIX);
+                var actual = hand.DrawCard(tableCard);
                     actual.ShouldBe(new EmptyUnoCard());
             }
 
@@ -138,8 +139,9 @@ namespace C2M2H1_TemplateMethod.Tests
             {
                 var hand = new UnoHand();
                 var card = new UnoCard(Color.RED, Number.ZERO);
-                hand.AddCard(card);
-                hand.DrawCard(new UnoCard(Color.RED, Number.SIX)).ShouldBe(new UnoCard(Color.RED, Number.ZERO));
+                hand.Add(card);
+                UnoCard tableCard = new UnoCard(Color.RED, Number.SIX);
+                hand.DrawCard(tableCard).ShouldBe(new UnoCard(Color.RED, Number.ZERO));
             }
         }
 
