@@ -1,39 +1,36 @@
 namespace C2M2H1_TemplateMethod.Uno
 {
-    public class UnoDeck
+    using Framework;
+    public class UnoDeck : DeckBase<UnoCard>
     {
-        internal Queue<UnoCard> _cards = new Queue<UnoCard>();
-        private readonly List<UnoCard> _foldedCards = new List<UnoCard>();
-
         public UnoDeck()
         {
-            foreach (Color color in Enum.GetValues(typeof(Color)))
-            {
-                if (color == Color.NONE)
-                    continue;
-                foreach (Number number in Enum.GetValues(typeof(Number)))
-                {
-                    if (number == Number.NONE)
-                        continue;
-                    _foldedCards.Add(new UnoCard(color, number));
-                }
-            }
+            _foldedCards = GenerateCard().ToList();
         }
 
-        public void Shuffle()
+        public sealed override IEnumerable<UnoCard> GenerateCard()
         {
-            _cards = new Queue<UnoCard>(_cards.Concat( _foldedCards.OrderBy(x => Guid.NewGuid())));
+            return from Color color in Enum.GetValues(typeof(Color))
+                   where color != Color.NONE
+                   from Number number in Enum.GetValues(typeof(Number))
+                   where number != Number.NONE
+                   select new UnoCard(color, number);
+        }
+
+        public override void Shuffle()
+        {
+            base.Shuffle();
             _foldedCards.Clear();
         }
 
-        public UnoCard Draw()
+        public override UnoCard Draw()
         {
             if (_cards.Count == 0)
                 Shuffle();
-            
-            return _cards.Dequeue();
+
+            return base.Draw();
         }
-        
+
         public void Fold(UnoCard unoCard)
         {
             _foldedCards.Add(unoCard);
